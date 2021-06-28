@@ -1,0 +1,50 @@
+{
+  "name": "regexper-visualization",
+  "version": "0.1.0",
+  "description": "正则表达式可视化",
+  "main": ".postcssrc.js",
+  "scripts": {
+    "start": "npm install && npm run dev",
+    "dev": "webpack-dev-server --config webpack.dev.js",
+    "build": "hai2007_nodejs -d ./dist && webpack --config webpack.prod.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hai2007/Regexper-Visualization.git"
+  },
+  "keywords": [
+    "regexper",
+    "visualization",
+    "image2d"
+  ],
+  "author": "你好2007",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hai2007/Regexper-Visualization/issues"
+  },
+  "homepage": "https://github.com/hai2007/Regexper-Visualization#readme",
+  "dependencies": {
+    "@hai2007/polyfill": "0.1.1",
+    "@hai2007/style": "^0.3.0",
+    "@hai2007/tool": "^0.7.0",
+    "image2d": "^1.14.0",
+    "quick-paper": "^0.5.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
+    "@hai2007/algorithm": "^0.6.3",
+    "@hai2007/nodejs": "^1.0.1",
+    "autoprefixer": "^9.7.1",
+    "babel-loader": "^8.1.0",
+    "css-loader": "^2.1.1",
+    "file-loader": "^4.2.0",
+    "postcss": "^7.0.21",
+    "postcss-loader": "^3.0.0",
+    "url-loader": "^2.2.0",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.11.0",
+    "webpack-merge": "^4.2.2"
+  }
+}
