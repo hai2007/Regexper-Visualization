@@ -2,7 +2,6 @@
   "name": "regexper-visualization",
   "version": "0.1.0",
   "description": "正则表达式可视化",
-  "main": ".postcssrc.js",
   "scripts": {
     "start": "npm install && npm run dev",
     "dev": "webpack-dev-server --config webpack.dev.js",

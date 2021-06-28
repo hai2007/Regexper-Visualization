@@ -1,15 +1,135 @@
 <template>
-
+    <header>
+        正则表达式可视化
+        <a href="https://hai2007.gitee.io/sweethome/" target="_blank">
+            访问主站
+        </a>
+    </header>
+    <div class="input">
+        <input type="text" q-model='express' @keydown='doDisplay("input")'>
+        <span @click='doDisplay'>显示</span>
+    </div>
+    <div class="content">
+        <canvas>非常抱歉，您的浏览器不支持canvas!</canvas>
+    </div>
 </template>
 <script>
+
+    import QuickPaper from 'quick-paper';
+
     export default {
         data() {
             return {
-
+                express: ""
             };
+        },
+        mounted() {
+
+            // 获取值
+            this.express = decodeURIComponent(QuickPaper.urlFormat(window.location.href).params.express || "");
+
+            // 绘制
+            this.doDraw(this.express);
+        },
+        methods: {
+            doDisplay(flag, event) {
+
+                // 如果是输入框里面的正常输入
+                if (flag == 'input' && event.keyCode != 13) return;
+
+                // 修改地址
+                window.location.search = "?express=" + this.express;
+
+                // 绘制
+                this.doDraw(this.express);
+            },
+            doDraw(express) {
+
+                console.log(express);
+
+            }
         }
     };
 </script>
 <style>
+    [quickpaper] {
+        &>header {
+            background-image: url('./assets/logo.png');
+            line-height: 50px;
+            background-size: auto 40px;
+            background-repeat: no-repeat;
+            background-color: #efefef;
+            background-position: 5px center;
+            padding-left: 50px;
+            font-weight: 800;
+            font-family: serif;
+            font-size: 20px;
+            color: #97932e;
 
+            &>a {
+                position: absolute;
+                right: 10px;
+                background-color: white;
+                line-height: 30px;
+                font-size: 12px;
+                padding: 0 10px;
+                top: 10px;
+                color: gray;
+
+                &:hover {
+                    outline: 1px solid #fefefe;
+                }
+            }
+        }
+
+        &>div {
+            &.input {
+                background-color: #fafafa;
+                padding: 10px 0;
+                white-space: nowrap;
+
+                &>input,
+                &>span {
+                    vertical-align: top;
+                }
+
+                &>input {
+                    height: 40px;
+                    width: calc(100vw - 110px);
+                    margin-left: 10px;
+                    padding: 0 10px;
+                    outline: none;
+                }
+
+                &>span {
+                    text-align: center;
+                    display: inline-block;
+                    width: 80px;
+                    line-height: 40px;
+                    margin: 0 10px;
+                    background-color: #97932e;
+                    color: #fefefe;
+                    cursor: pointer;
+
+                    &:hover {
+                        outline: 1px solid #97932e;
+                    }
+                }
+
+            }
+
+            &.content {
+                min-height: calc(100vh - 110px);
+                text-align: center;
+                padding: 10px;
+                padding-top: 0;
+                background-color: #fafafa;
+
+                &>canvas {
+                    background-color: white;
+                }
+
+            }
+        }
+    }
 </style>
