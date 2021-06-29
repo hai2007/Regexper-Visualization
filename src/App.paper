@@ -1,8 +1,8 @@
 <template>
     <header>
         正则表达式可视化
-        <a href="https://hai2007.gitee.io/sweethome/" target="_blank">
-            访问主站
+        <a href="https://hai2007.gitee.io/sweethome/#/tool" target="_blank">
+            工具列表
         </a>
     </header>
     <div class="input">
