@@ -25,7 +25,7 @@
   "dependencies": {
     "@hai2007/polyfill": "0.1.1",
     "@hai2007/style": "^0.3.0",
-    "@hai2007/tool": "^0.7.0",
+    "@hai2007/tool": "^0.8.0",
     "image2d": "^1.14.0",
     "quick-paper": "^0.5.1"
   },

@@ -16,6 +16,7 @@
 <script>
 
     import QuickPaper from 'quick-paper';
+    import regexpToJson from './regexpToJson/index';
 
     export default {
         data() {
@@ -38,7 +39,7 @@
                 if (flag == 'input' && event.keyCode != 13) return;
 
                 // 修改地址
-                window.location.search = "?express=" + this.express;
+                window.location.search = "?express=" + encodeURIComponent(this.express);
 
                 // 绘制
                 this.doDraw(this.express);
@@ -46,6 +47,7 @@
             doDraw(express) {
 
                 console.log(express);
+                console.log(regexpToJson(express));
 
             }
         }
