@@ -9,6 +9,7 @@ import "@hai2007/style/normalize.css";
 import App from './App.paper';
 
 // 创建对象
+// https://hai2007.gitee.io/quick-paper
 window.quickPaper = new QuickPaper({
 
     // 挂载点
