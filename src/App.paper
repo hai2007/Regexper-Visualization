@@ -21,9 +21,7 @@
     <div class="content">
         <canvas id='Regexper-Visualization-Canvas'>非常抱歉，您的浏览器不支持canvas!</canvas>
     </div>
-    <div class="help-hidden" id='help-hidden'>
-        SD发生的发
-    </div>
+    <div class="help-hidden" id='help-hidden'></div>
 </template>
 <script>
 
@@ -76,12 +74,11 @@
 
                 let imageData = regexpToJson(express, this.isString == 'yes');
 
-                // 绘制
-                drawImage(Image2D('#Regexper-Visualization-Canvas')
+                let painter = Image2D('#Regexper-Visualization-Canvas')
 
                     // 设置画布大小
                     .attr({
-                        width: imageData.width + 40,
+                        width: imageData.width + 60,
                         height: imageData.height + 20
                     })
 
@@ -90,7 +87,18 @@
                         "font-size": 12,
                         textAlign: "center",
                         "font-family": "sans-serif"
-                    }), imageData, 20, 10);
+                    });
+
+                // 绘制
+                drawImage(painter, imageData, 30, 10);
+
+                // 绘制开头和结尾
+
+                painter.beginPath().moveTo(20, imageData.height * 0.5 + 10).lineTo(30, imageData.height * 0.5 + 10).stroke();
+                painter.beginPath().moveTo(imageData.width + 40, imageData.height * 0.5 + 10).lineTo(imageData.width + 30, imageData.height * 0.5 + 10).stroke();
+
+                painter.fillCircle(15, imageData.height * 0.5 + 10, 5);
+                painter.fillCircle(imageData.width + 45, imageData.height * 0.5 + 10, 5);
 
             }
         }

@@ -7,6 +7,7 @@ export default function (texts) {
 
     let helpHidden = document.getElementById('help-hidden');
     helpHidden.innerText = texts;
-    return xhtml.size(helpHidden).width;
+    let width = xhtml.size(helpHidden).width;
+    return width < 14 ? 14 : width;
 
 };
