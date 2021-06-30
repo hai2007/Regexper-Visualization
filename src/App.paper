@@ -81,16 +81,16 @@
 
                     // 设置画布大小
                     .attr({
-                        width: imageData.width,
-                        height: imageData.height
+                        width: imageData.width + 40,
+                        height: imageData.height + 20
                     })
 
                     // 获取画笔，并进行初步的设置
-                    .painter({
+                    .painter().config({
                         "font-size": 12,
                         textAlign: "center",
                         "font-family": "sans-serif"
-                    }), imageData);
+                    }), imageData, 20, 10);
 
             }
         }
