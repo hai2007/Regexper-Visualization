@@ -117,7 +117,9 @@ export default function (express) {
                             }
 
                             // 最大值
-                            if (temp.length <= 1 || temp[1].trim() == '') {
+                            if(temp.length <= 1){
+                                temp[1] = temp[0];
+                            }else if (temp[1].trim() == '') {
                                 temp[1] = -1;
                             } else {
                                 temp[1] = +temp[1];
