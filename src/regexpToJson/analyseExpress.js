@@ -10,6 +10,9 @@ import specialWord from './specialWord';
 // 范围分析
 import analysePurview from './analysePurview';
 
+// 用于辅助计算内容宽
+import calcWidth from './calcWidth';
+
 // 对表达式进行结构分析
 
 export default function (express) {
@@ -53,7 +56,9 @@ export default function (express) {
                             content: temp[0],
                             type: temp[1],
                             max: 1,
-                            min: 1
+                            min: 1,
+                            width: calcWidth(temp[0]) + 30,
+                            height: 44
                         });
                         reader.readNext(); reader.readNext();
                     }
@@ -65,11 +70,14 @@ export default function (express) {
                             temp += reader.currentChar;
                             reader.readNext();
                         }
+                        temp = analysePurview(temp.replace(/^\[/, ''));
                         subExpressArray.push({
-                            content: analysePurview(temp.replace(/^\[/, '')),
+                            content: temp,
                             type: "范围",
                             max: 1,
-                            min: 1
+                            min: 1,
+                            width: 90, // 5+24+4+4+4+24+5  +20
+                            height: temp.length * 28 + 26 // 5+24+4+24+4+...+5  +20
                         });
                         reader.readNext();
                     }
@@ -137,11 +145,14 @@ export default function (express) {
                     // 否则就是普通的常量了
                     else {
 
+                        temp = reader.currentChar == '.' ? "任意字符" : reader.currentChar;
                         subExpressArray.push({
-                            content: reader.currentChar == '.' ? "任意字符" : reader.currentChar,
+                            content: temp,
                             type: reader.currentChar == '.' ? '描述' : '内容',
                             max: 1,
-                            min: 1
+                            min: 1,
+                            height: 44,
+                            width: calcWidth(temp) + 30
                         });
                         reader.readNext();
                     }

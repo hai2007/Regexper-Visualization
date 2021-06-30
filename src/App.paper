@@ -19,13 +19,18 @@
         <span @click='doDisplay'>显示</span>
     </div>
     <div class="content">
-        <canvas>非常抱歉，您的浏览器不支持canvas!</canvas>
+        <canvas id='Regexper-Visualization-Canvas'>非常抱歉，您的浏览器不支持canvas!</canvas>
+    </div>
+    <div class="help-hidden" id='help-hidden'>
+        SD发生的发
     </div>
 </template>
 <script>
 
     import QuickPaper from 'quick-paper';
     import regexpToJson from './regexpToJson/index';
+    import drawImage from './drawImage/index';
+    import Image2D from 'image2d';
 
     export default {
         data() {
@@ -69,8 +74,23 @@
             },
             doDraw(express) {
 
-                console.log(express);
-                console.log(regexpToJson(express, this.isString == 'yes'));
+                let imageData = regexpToJson(express, this.isString == 'yes');
+
+                // 绘制
+                drawImage(Image2D('#Regexper-Visualization-Canvas')
+
+                    // 设置画布大小
+                    .attr({
+                        width: imageData.width,
+                        height: imageData.height
+                    })
+
+                    // 获取画笔，并进行初步的设置
+                    .painter({
+                        "font-size": 12,
+                        textAlign: "center",
+                        "font-family": "sans-serif"
+                    }), imageData);
 
             }
         }
@@ -79,6 +99,15 @@
 <style>
     [quickpaper] {
         min-width: 700px;
+
+        .help-hidden {
+            position: fixed;
+            font-size: 12px;
+            font-family: sans-serif;
+            padding: 0;
+            border: none;
+            bottom: -100px;
+        }
 
         &>header {
             background-image: url('./assets/logo.png');
