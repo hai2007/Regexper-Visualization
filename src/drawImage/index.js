@@ -2,7 +2,39 @@
 import { isArray } from '@hai2007/tool/type';
 import drawNode from './drawNode';
 
+let group_index = 1;
+
+let normalConfig = {
+    'strokeStyle': '#000000',
+    'lineDash': [],
+    'lineWidth': 2,
+    "font-size": 12
+};
+
 export default function drawImage(painter, imageData, left, top) {
+
+    // 绘制组标记
+    if (imageData.flag != "no-group") {
+
+        painter.config({
+            'strokeStyle': 'red',
+            'lineDash': [2],
+            'lineWidth': 1,
+            'font-size': 10
+        })
+            .strokeRect(left + 5, top + 5, imageData.width - 10, imageData.height - 10)
+
+            // 提示文字
+            .fillText({
+                "?:": "仅匹配",
+                "?!": "匹配否",
+                "?=": "匹配是",
+                "group": "#" + (group_index++)
+            }[imageData.flag], left + imageData.width * 0.5, top);
+    }
+
+    // 统一配置画笔
+    painter.config(normalConfig);
 
     if (imageData.contents.length > 1) {
 
@@ -67,6 +99,26 @@ export default function drawImage(painter, imageData, left, top) {
                             _left + _helpWidth + colItem.width, _top + _helpHeight + colItem.height * 0.5)
                     .lineTo(_left + _helpWidth + colItem.width - 10, _top + _helpHeight + colItem.height * 0.5)
                     .stroke();
+
+                // 绘制循环次数
+                if (colItem.min != 1 || colItem.max != 1) {
+
+                    let purview = "";
+                    if (colItem.min == -1) purview = '<=' + colItem.max;
+                    else if (colItem.max == -1) purview = '>=' + colItem.min;
+                    else if (colItem.min == colItem.max) purview = colItem.min + "次";
+                    else purview = colItem.min + " ~ " + colItem.max;
+
+                    painter.config({
+                        'fillStyle': 'gray',
+                        'font-size': 10
+                    })
+                        // 提示文字
+                        .fillText(purview, _left + _helpWidth + colItem.width * 0.5, _top + colItem.height + _helpHeight - 5);
+
+                    // 统一配置画笔
+                    painter.config(normalConfig);
+                }
 
                 if (colItem.type == '内容') {
 

@@ -84,7 +84,6 @@
 
                     // 获取画笔，并进行初步的设置
                     .painter().config({
-                        "font-size": 12,
                         textAlign: "center",
                         "font-family": "sans-serif"
                     });
@@ -199,6 +198,7 @@
                 padding: 10px;
                 padding-top: 0;
                 background-color: #fafafa;
+                overflow: auto;
 
                 &>canvas {
                     background-color: white;
