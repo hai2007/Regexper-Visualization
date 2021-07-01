@@ -27,6 +27,9 @@ export default function (express, _isString) {
             // ?! 零宽断言，匹配目标的后面不是
             flag: "no-group",
 
+            // 标记当前组循环次数
+            max: 1, min: 1,
+
             type: "组",
 
             // 记录并列的一列列内容
@@ -62,6 +65,13 @@ export default function (express, _isString) {
 
             // 分组匹配结束，返回
             else if (expressArray[i] == ')') {
+
+                if (expressArray[i + 1] && expressArray[i + 1].type == "分组循环") {
+                    imageData.max = expressArray[i + 1].max;
+                    imageData.min = expressArray[i + 1].min;
+                    i++;
+                }
+
                 break;
             }
 

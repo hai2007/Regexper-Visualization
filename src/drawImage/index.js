@@ -1,6 +1,7 @@
 
 import { isArray } from '@hai2007/tool/type';
 import drawNode from './drawNode';
+import toLoopText from './toLoopText';
 
 let group_index = 1;
 
@@ -12,6 +13,8 @@ let normalConfig = {
 };
 
 export default function drawImage(painter, imageData, left, top) {
+
+    console.log(imageData);
 
     // 绘制组标记
     if (imageData.flag != "no-group") {
@@ -31,6 +34,16 @@ export default function drawImage(painter, imageData, left, top) {
                 "?=": "匹配是",
                 "group": "#" + (group_index++)
             }[imageData.flag], left + imageData.width * 0.5, top);
+
+        // 绘制循环次数
+        if (imageData.min != 1 || imageData.max != 1) {
+
+            painter.fillText(
+                toLoopText(imageData.min, imageData.max),
+                left + imageData.width * 0.5, top + imageData.height
+            );
+
+        }
     }
 
     // 统一配置画笔
@@ -103,11 +116,7 @@ export default function drawImage(painter, imageData, left, top) {
                 // 绘制循环次数
                 if (colItem.min != 1 || colItem.max != 1) {
 
-                    let purview = "";
-                    if (colItem.min == -1) purview = '<=' + colItem.max;
-                    else if (colItem.max == -1) purview = '>=' + colItem.min;
-                    else if (colItem.min == colItem.max) purview = colItem.min + "次";
-                    else purview = colItem.min + " ~ " + colItem.max;
+                    let purview = toLoopText(colItem.min, colItem.max);
 
                     painter.config({
                         'fillStyle': 'gray',

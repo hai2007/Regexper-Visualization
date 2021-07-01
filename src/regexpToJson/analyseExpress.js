@@ -117,9 +117,9 @@ export default function (express) {
                             }
 
                             // 最大值
-                            if(temp.length <= 1){
+                            if (temp.length <= 1) {
                                 temp[1] = temp[0];
-                            }else if (temp[1].trim() == '') {
+                            } else if (temp[1].trim() == '') {
                                 temp[1] = -1;
                             } else {
                                 temp[1] = +temp[1];
@@ -138,8 +138,21 @@ export default function (express) {
 
                         }
 
-                        subExpressArray[subExpressArray.length - 1].min = temp[0];
-                        subExpressArray[subExpressArray.length - 1].max = temp[1];
+                        // 如果是标记分组循环次数的
+                        if (subExpressArray.length == 0) {
+                            expressArray.push({
+                                type: "分组循环",
+                                max: temp[1],
+                                min: temp[0]
+                            });
+                        }
+
+                        // 否则就是普通的
+                        else {
+                            subExpressArray[subExpressArray.length - 1].min = temp[0];
+                            subExpressArray[subExpressArray.length - 1].max = temp[1];
+                        }
+
                         reader.readNext();
 
                     }
