@@ -14,10 +14,8 @@ let normalConfig = {
 
 export default function drawImage(painter, imageData, left, top) {
 
-    console.log(imageData);
-
     // 绘制组标记
-    if (imageData.flag != "no-group") {
+    if (imageData.flag != "no-group" && imageData.flag != '?@') {
 
         painter.config({
             'strokeStyle': 'red',

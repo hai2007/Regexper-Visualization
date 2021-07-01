@@ -9,6 +9,11 @@ export default function (express, _isString) {
     // 单词分析
     let expressArray = analyseExpress(express.trim());
 
+    // 补充辅助括号
+    expressArray.unshift(["?@"]);
+    expressArray.unshift('(');
+    expressArray.push(')');
+
     /**
      * 接下来，我们将进行结构分析，
      * 获取完整的尺寸大小和结点之间的关系
@@ -25,6 +30,7 @@ export default function (express, _isString) {
             // ?: 匹配,不捕获匹配的文本，也不给此分组分配组号
             // ?= 零宽断言，匹配目标的后面是
             // ?! 零宽断言，匹配目标的后面不是
+            // ?@ 辅助组
             flag: "no-group",
 
             // 标记当前组循环次数
@@ -97,7 +103,7 @@ export default function (express, _isString) {
                 for (let j = 0; j < expressArray[i].length; j++) {
 
                     // 如果是分组标记
-                    if (j == 0 && ['?=', '?!', '?!'].indexOf(expressArray[i][0]) > -1) {
+                    if (j == 0 && ['?=', '?!', '?!', '?@'].indexOf(expressArray[i][0]) > -1) {
                         imageData.flag = expressArray[i][0];
                     }
 
