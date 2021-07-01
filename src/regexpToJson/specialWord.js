@@ -12,7 +12,9 @@ export default function (word) {
         "\\0": "null",
         "\\n": "换行",
         "\\f": "换页",
-        "\\t": "tab缩进"
+        "\\t": "tab缩进",
+        "\\r": "回车",
+        "\\x20": "空格"
     };
 
     if (word in specialWords) {

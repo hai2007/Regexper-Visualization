@@ -145,19 +145,28 @@ export default function drawImage(painter, imageData, left, top) {
                     for (let k = 0; k < colItem.content.length; k++) {
                         if (isArray(colItem.content[k])) {
 
-                            drawNode(painter, _left + 15 + _helpWidth, _top + 15 + 28 * k + _helpHeight, 24, 24, '#dae9e5', colItem.content[k][0]);
-                            drawNode(painter, _left + 51 + _helpWidth, _top + 15 + 28 * k + _helpHeight, 24, 24, '#dae9e5', colItem.content[k][1]);
+                            drawNode(painter, _left + colItem.width * 0.5 + _helpWidth - 6 - colItem.content[k][0].width, _top + 15 + 28 * k + _helpHeight, colItem.content[k][0].width, 24, {
+                                "内容": '#dae9e5',
+                                "描述": "#bada55"
+                            }[colItem.content[k][0].type], colItem.content[k][0].content);
+                            drawNode(painter, _left + colItem.width * 0.5 + 6 + _helpWidth, _top + 15 + 28 * k + _helpHeight, colItem.content[k][1].width, 24, {
+                                "内容": '#dae9e5',
+                                "描述": "#bada55"
+                            }[colItem.content[k][1].type], colItem.content[k][1].content);
 
                             // 画线条
                             painter
                                 .beginPath()
-                                .moveTo(_left + 43 + _helpWidth, _top + 27 + 28 * k + _helpHeight)
-                                .lineTo(_left + 47 + _helpWidth, _top + 27 + 28 * k + _helpHeight)
+                                .moveTo(_left + colItem.width * 0.5 - 2 + _helpWidth, _top + 27 + 28 * k + _helpHeight)
+                                .lineTo(_left + colItem.width * 0.5 + 2 + _helpWidth, _top + 27 + 28 * k + _helpHeight)
                                 .stroke();
 
                         } else {
 
-                            drawNode(painter, _left + 33 + _helpWidth, _top + 15 + 28 * k + _helpHeight, 24, 24, '#dae9e5', colItem.content[k]);
+                            drawNode(painter, _left + _helpWidth + colItem.width * 0.5 - colItem.content[k].width * 0.5, _top + 15 + 28 * k + _helpHeight, colItem.content[k].width, 24, {
+                                "内容": '#dae9e5',
+                                "描述": "#bada55"
+                            }[colItem.content[k].type], colItem.content[k].content);
 
                         }
                     }

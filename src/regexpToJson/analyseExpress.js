@@ -51,7 +51,15 @@ export default function (express) {
 
                     // 转义
                     if (reader.currentChar == '\\') {
-                        temp = specialWord(reader.getNextN(2));
+
+                        if (reader.getNextN(2) == '\\x') {
+                            temp = specialWord(reader.getNextN(4));
+                            reader.readNext(); reader.readNext(); reader.readNext(); reader.readNext();
+                        } else {
+                            temp = specialWord(reader.getNextN(2));
+                            reader.readNext(); reader.readNext();
+                        }
+
                         subExpressArray.push({
                             content: temp[0],
                             type: temp[1],
@@ -60,7 +68,6 @@ export default function (express) {
                             width: calcWidth(temp[0]) + 30,
                             height: 44
                         });
-                        reader.readNext(); reader.readNext();
                     }
 
                     // 备选
@@ -72,12 +79,12 @@ export default function (express) {
                         }
                         temp = analysePurview(temp.replace(/^\[/, ''));
                         subExpressArray.push({
-                            content: temp,
+                            content: temp[0],
                             type: "范围",
                             max: 1,
                             min: 1,
-                            width: 90, // 5+24+4+4+4+24+5  +20
-                            height: temp.length * 28 + 26 // 5+24+4+24+4+...+5  +20
+                            width: temp[1] + 20, // 5+X+4+4+4+X+5  +20
+                            height: temp[0].length * 28 + 26 // 5+24+4+24+4+...+5  +20
                         });
                         reader.readNext();
                     }
