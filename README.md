@@ -1,6 +1,6 @@
 <p align='center'>
     <a href='https://hai2007.github.io/Regexper-Visualization/?express=%5Cw%7B1%2C5%7D%5Ba-e0-8%5D%7C4(534)5(35%7B3%7D%7Cd)d(%3F%3D123)%5C1&isString=no' target='_blank'>
-        <img src="./snipping.png">
+        <img src="https://hai2007.github.io/Regexper-Visualization/snipping.png">
     </a>
 </p>
 
