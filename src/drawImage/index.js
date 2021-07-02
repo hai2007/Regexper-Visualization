@@ -172,8 +172,7 @@ export default function drawImage(painter, imageData, left, top) {
                     }
 
                 } else {
-                    console.error('发生了未期待的情况');
-                    console.log(colItem);
+                    throw new Error('发生了未期待的情况\n' + JSON.stringify(colItem, null, 4));
                 }
 
             }

@@ -4,7 +4,7 @@ import analyseExpress from './analyseExpress';
 export default function (express, _isString) {
 
     // 预处理
-    if (_isString) express = pretreatment(express);
+    express = pretreatment(express, _isString);
 
     // 单词分析
     let expressArray = analyseExpress(express.trim());

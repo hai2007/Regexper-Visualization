@@ -10,7 +10,7 @@
         <a href="https://hai2007.gitee.io/sweethome/#/tool" title='点击我返回工具列表页'>
             工具列表
         </a>
-        <a href="https://github.com/hai2007/Regexper-Visualization/issues" target="_blank" title='点击我反馈使用中发现的问题'>
+        <a :href="issue" target="_blank" title='点击我反馈使用中发现的问题'>
             提Issue或发现问题
         </a>
     </header>
@@ -18,7 +18,7 @@
         <input type="text" q-model='express' @keydown='doDisplay("input")'>
         <span @click='doDisplay'>显示</span>
     </div>
-    <div class="content">
+    <div class="content" id='Regexper-Visualization-Content'>
         <canvas id='Regexper-Visualization-Canvas'>非常抱歉，您的浏览器不支持canvas!</canvas>
     </div>
     <div class="help-hidden" id='help-hidden'></div>
@@ -34,7 +34,8 @@
         data() {
             return {
                 express: "",
-                isString: "no"
+                isString: "no",
+                issue: "https://github.com/hai2007/Regexper-Visualization/issues"
             };
         },
         mounted() {
@@ -72,32 +73,49 @@
             },
             doDraw(express) {
 
-                let imageData = regexpToJson(express, this.isString == 'yes');
+                try {
 
-                let painter = Image2D('#Regexper-Visualization-Canvas')
+                    let imageData = regexpToJson(express, this.isString == 'yes');
 
-                    // 设置画布大小
-                    .attr({
-                        width: imageData.width + 60,
-                        height: imageData.height + 20
-                    })
+                    let painter = Image2D('#Regexper-Visualization-Canvas')
 
-                    // 获取画笔，并进行初步的设置
-                    .painter().config({
-                        textAlign: "center",
-                        "font-family": "sans-serif"
-                    });
+                        // 设置画布大小
+                        .attr({
+                            width: imageData.width + 60,
+                            height: imageData.height + 20
+                        })
 
-                // 绘制
-                drawImage(painter, imageData, 30, 10);
+                        // 获取画笔，并进行初步的设置
+                        .painter().config({
+                            textAlign: "center",
+                            "font-family": "sans-serif"
+                        });
 
-                // 绘制开头和结尾
+                    // 绘制
+                    drawImage(painter, imageData, 30, 10);
 
-                painter.beginPath().moveTo(20, imageData.height * 0.5 + 10).lineTo(30, imageData.height * 0.5 + 10).stroke();
-                painter.beginPath().moveTo(imageData.width + 40, imageData.height * 0.5 + 10).lineTo(imageData.width + 30, imageData.height * 0.5 + 10).stroke();
+                    // 绘制开头和结尾
 
-                painter.fillCircle(15, imageData.height * 0.5 + 10, 5);
-                painter.fillCircle(imageData.width + 45, imageData.height * 0.5 + 10, 5);
+                    painter.beginPath().moveTo(20, imageData.height * 0.5 + 10).lineTo(30, imageData.height * 0.5 + 10).stroke();
+                    painter.beginPath().moveTo(imageData.width + 40, imageData.height * 0.5 + 10).lineTo(imageData.width + 30, imageData.height * 0.5 + 10).stroke();
+
+                    painter.fillCircle(15, imageData.height * 0.5 + 10, 5);
+                    painter.fillCircle(imageData.width + 45, imageData.height * 0.5 + 10, 5);
+
+                } catch (e) {
+
+                    document.getElementById('Regexper-Visualization-Content').innerHTML = `<h2 style='font-size:16px;margin-top:30px;'>
+                        发生错误，请复制下面的内容后
+                        <a href='${this.issue}' style='background-color:red;color:white;padding:5px;display:inline-block;'>点击此处</a>
+                        告诉我们！
+                        </h2>
+                        <div style='font-size:12px;margin-top:30px;line-height:1.5em;width:700px;display:inline-block;text-align:left;background-color:white;padding:30px;'>
+                            表达式：${this.express}<br />
+                            是否是字符串：${this.isString}<br />
+                            错误：<pre style='color:red;'>${e}</pre><br />
+                        </div>
+                        `;
+                }
 
             }
         }
