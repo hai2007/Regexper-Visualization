@@ -7,7 +7,10 @@ export default function (express, _isString) {
     if (_isString) {
         express = express.replace(/\\\\/g, '\\');
     } else {
-        express = express.replace(/^\//, '').replace(/\/$/, '');
+
+        if (/^\//.test(express) && /\/$/.test(express)) {
+            express = express.replace(/^\//, '').replace(/\/$/, '');
+        }
     }
 
     return express;
