@@ -103,7 +103,7 @@ export default function (express, _isString) {
                 for (let j = 0; j < expressArray[i].length; j++) {
 
                     // 如果是分组标记
-                    if (j == 0 && ['?=', '?!', '?!', '?@'].indexOf(expressArray[i][0]) > -1) {
+                    if (j == 0 && ['?=', '?!', '?:', '?@'].indexOf(expressArray[i][0]) > -1) {
                         imageData.flag = expressArray[i][0];
                     }
 
