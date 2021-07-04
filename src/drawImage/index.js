@@ -81,7 +81,7 @@ export default function drawImage(painter, imageData, left, top) {
 
             // 组
             if (colItem.type == '组') {
-                drawImage(painter, colItem, _left, _top + _helpHeight);
+                drawImage(painter, colItem, _left + _helpWidth, _top + _helpHeight);
             }
 
             // 否则就是需要进行实际绘制的了
