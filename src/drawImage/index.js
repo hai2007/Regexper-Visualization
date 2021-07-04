@@ -78,8 +78,6 @@ export default function drawImage(painter, imageData, left, top) {
             let colItem = imageData.contents[rowNum].contents[colNum];
             let _helpHeight = (imageData.contents[rowNum].height - colItem.height) * 0.5;
 
-            if (imageData.type != "组" || group_index > 1) {
-
                 // 绘制开头和结尾的
 
                 painter
@@ -102,7 +100,6 @@ export default function drawImage(painter, imageData, left, top) {
                             _left + _helpWidth + colItem.width, _top + _helpHeight + colItem.height * 0.5)
                     .lineTo(_left + _helpWidth + colItem.width - 10, _top + _helpHeight + colItem.height * 0.5)
                     .stroke();
-            }
 
 
             // 组
