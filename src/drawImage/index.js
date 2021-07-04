@@ -78,15 +78,7 @@ export default function drawImage(painter, imageData, left, top) {
             let colItem = imageData.contents[rowNum].contents[colNum];
             let _helpHeight = (imageData.contents[rowNum].height - colItem.height) * 0.5;
 
-
-            // 组
-            if (colItem.type == '组') {
-                drawImage(painter, colItem, _left + _helpWidth, _top + _helpHeight);
-            }
-
-            // 否则就是需要进行实际绘制的了
-            else {
-
+            if (imageData.type != "组" || group_index > 1) {
 
                 // 绘制开头和结尾的
 
@@ -110,6 +102,16 @@ export default function drawImage(painter, imageData, left, top) {
                             _left + _helpWidth + colItem.width, _top + _helpHeight + colItem.height * 0.5)
                     .lineTo(_left + _helpWidth + colItem.width - 10, _top + _helpHeight + colItem.height * 0.5)
                     .stroke();
+            }
+
+
+            // 组
+            if (colItem.type == '组') {
+                drawImage(painter, colItem, _left + _helpWidth, _top + _helpHeight);
+            }
+
+            // 否则就是需要进行实际绘制的了
+            else {
 
                 // 绘制循环次数
                 if (colItem.min != 1 || colItem.max != 1) {

@@ -6,3 +6,7 @@ v0.1.1:
     date:2021-07-04
     changes:
       - 修复组对齐错乱问题
+v0.1.2:
+    date:2021-07-04
+    changes:
+      - 修复连线缺失问题：https://github.com/hai2007/Regexper-Visualization/issues/1
