@@ -1,4 +1,4 @@
-export default function (painter, x, y, width, height, color, content) {
+export default function (painter, x, y, width, height, color, content, textColor = '#000') {
 
     // 先绘制背景
     painter
@@ -6,7 +6,7 @@ export default function (painter, x, y, width, height, color, content) {
         .fillRect(x, y, width, height)
 
         // 再绘制内容
-        .config('fillStyle', '#000')
+        .config('fillStyle', textColor)
         .fillText(content, x + width * 0.5, y + height * 0.5);
 
 };

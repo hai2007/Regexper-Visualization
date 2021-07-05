@@ -5,8 +5,8 @@ module.exports = {
     entry: ['./src/entry.js'],
     output: {
         path: __dirname,
-        filename: 'dist/main@v' + pkg.version + '.js',
-        chunkFilename: 'dist/main@v' + pkg.version + '-bundle[name].js'
+        filename: 'dist/Regexper-Visualization@v' + pkg.version + '.js',
+        chunkFilename: 'dist/Regexper-Visualization@v' + pkg.version + '-bundle[name].js'
     },
     module: {
         rules: [{

@@ -78,7 +78,9 @@ export default function drawImage(painter, imageData, left, top) {
             let colItem = imageData.contents[rowNum].contents[colNum];
             let _helpHeight = (imageData.contents[rowNum].height - colItem.height) * 0.5;
 
-                // 绘制开头和结尾的
+            // 绘制开头和结尾的
+
+            if (colItem.type != '组' || colItem.contents.length == 1) {
 
                 painter
                     .config({
@@ -100,6 +102,7 @@ export default function drawImage(painter, imageData, left, top) {
                             _left + _helpWidth + colItem.width, _top + _helpHeight + colItem.height * 0.5)
                     .lineTo(_left + _helpWidth + colItem.width - 10, _top + _helpHeight + colItem.height * 0.5)
                     .stroke();
+            }
 
 
             // 组
@@ -162,10 +165,18 @@ export default function drawImage(painter, imageData, left, top) {
 
                         } else {
 
-                            drawNode(painter, _left + _helpWidth + colItem.width * 0.5 - colItem.content[k].width * 0.5, _top + 15 + 28 * k + _helpHeight, colItem.content[k].width, 24, {
-                                "内容": '#dae9e5',
-                                "描述": "#bada55"
-                            }[colItem.content[k].type], colItem.content[k].content);
+                            if (k == 0 && colItem.content[0].content == '^') {
+
+                                drawNode(painter, _left + _helpWidth + colItem.width * 0.5 - colItem.content[k].width * 0.5, _top + 15 + 28 * k + _helpHeight, colItem.content[k].width, 24, "#cbcbba", "非下列", 'white');
+
+                            } else {
+
+                                drawNode(painter, _left + _helpWidth + colItem.width * 0.5 - colItem.content[k].width * 0.5, _top + 15 + 28 * k + _helpHeight, colItem.content[k].width, 24, {
+                                    "内容": '#dae9e5',
+                                    "描述": "#bada55"
+                                }[colItem.content[k].type], colItem.content[k].content);
+
+                            }
 
                         }
                     }
