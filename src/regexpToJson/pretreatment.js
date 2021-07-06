@@ -5,7 +5,16 @@
 export default function (express, _isString) {
 
     if (_isString) {
-        express = express.replace(/\\\\/g, '\\');
+        let _express = "";
+        for (let i = 0; i < express.length; i++) {
+            if (express[i] == '\\') {
+                if (i + 1 < express.length) _express += express[i + 1];
+                i += 1;
+            } else {
+                _express += express[i];
+            }
+        }
+        express = _express;
     } else {
 
         if (/^\//.test(express) && /\/$/.test(express)) {
