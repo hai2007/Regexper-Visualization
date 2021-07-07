@@ -41,16 +41,47 @@ export default function (express) {
 
             // 内容按照最小单元分割
             let subExpressArray = [];
+            let tempContent = "";
+
+            let pushContentItem = isSpecialFlag => {
+                if (tempContent != "") {
+
+                    let tempContentArray;
+                    if (isSpecialFlag && tempContent.length > 1) {
+                        tempContentArray = [
+                            tempContent.substring(0, tempContent.length - 1),
+                            tempContent[tempContent.length - 1]
+                        ];
+                    } else {
+                        tempContentArray = [tempContent];
+                    }
+
+                    for (let _index = 0; _index < tempContentArray.length; _index++) {
+                        subExpressArray.push({
+                            content: tempContentArray[_index],
+                            type: '内容',
+                            max: 1,
+                            min: 1,
+                            height: 44,
+                            width: calcWidth(tempContentArray[_index]) + 30
+                        });
+                    }
+
+                    tempContent = "";
+                }
+            };
 
             while (reader.index < express.length) {
 
                 // 如果遇到边界字符，当前段内容分析完毕
                 if (reader.currentChar == ')' || reader.currentChar == '(' || reader.currentChar == '|') {
+                    pushContentItem();
                     break;
                 } else {
 
                     // 转义
                     if (reader.currentChar == '\\') {
+                        pushContentItem();
 
                         if (reader.getNextN(2) == '\\x') {
                             temp = specialWord(reader.getNextN(4));
@@ -72,6 +103,7 @@ export default function (express) {
 
                     // 备选
                     else if (reader.currentChar == '[') {
+                        pushContentItem();
                         temp = "";
                         while (reader.currentChar != ']') {
                             temp += reader.currentChar;
@@ -96,6 +128,7 @@ export default function (express) {
                         expressArray[expressArray.length - 1] == '(' &&
                         subExpressArray.length == 0
                     ) {
+                        pushContentItem();
                         subExpressArray.push(reader.getNextN(2));
                         reader.readNext(); reader.readNext();
                     }
@@ -103,6 +136,7 @@ export default function (express) {
                     // 范围
                     // 对于范围而言，它应该是和前面一个内容单元为一组
                     else if (['{', '*', '?', '+'].indexOf(reader.currentChar) > -1) {
+                        pushContentItem(true);
 
                         temp = [];
 
@@ -167,21 +201,26 @@ export default function (express) {
                     // 否则就是普通的常量了
                     else {
 
-                        temp = reader.currentChar == '.' ? "任意字符" : reader.currentChar;
-                        subExpressArray.push({
-                            content: temp,
-                            type: reader.currentChar == '.' ? '描述' : '内容',
-                            max: 1,
-                            min: 1,
-                            height: 44,
-                            width: calcWidth(temp) + 30
-                        });
+                        if (reader.currentChar == '.') {
+                            pushContentItem();
+                            subExpressArray.push({
+                                content: "任意字符",
+                                type: '描述',
+                                max: 1,
+                                min: 1,
+                                height: 44,
+                                width: calcWidth('任意字符') + 30
+                            });
+                        } else {
+                            tempContent += reader.currentChar;
+                        }
+
                         reader.readNext();
                     }
                 }
 
             }
-
+            pushContentItem();
             expressArray.push(subExpressArray);
 
         }
