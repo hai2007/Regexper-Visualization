@@ -1,6 +1,6 @@
 {
   "name": "regexper-visualization",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "正则表达式可视化",
   "scripts": {
     "start": "npm install && npm run dev",

@@ -80,29 +80,28 @@ export default function drawImage(painter, imageData, left, top) {
 
             // 绘制开头和结尾的
 
-            if (colItem.type != '组' || colItem.contents.length == 1) {
+            let _helpDist = (colItem.type == '组' && colItem.contents.length != 1) ? 0 : 10;
 
-                painter
-                    .config({
-                        lineWidth: 2
-                    })
-                    .beginPath()
-                    .moveTo(
-                        colNum == 0 ?
-                            _left
-                            :
-                            _left + _helpWidth, _top + _helpHeight + colItem.height * 0.5)
-                    .lineTo(_left + _helpWidth + 10, _top + _helpHeight + colItem.height * 0.5)
-                    .stroke()
-                    .beginPath()
-                    .moveTo(
-                        colNum == imageData.contents[rowNum].contents.length - 1 ?
-                            left + imageData.width
-                            :
-                            _left + _helpWidth + colItem.width, _top + _helpHeight + colItem.height * 0.5)
-                    .lineTo(_left + _helpWidth + colItem.width - 10, _top + _helpHeight + colItem.height * 0.5)
-                    .stroke();
-            }
+            painter
+                .config({
+                    lineWidth: 2
+                })
+                .beginPath()
+                .moveTo(
+                    colNum == 0 ?
+                        _left
+                        :
+                        _left + _helpWidth, _top + _helpHeight + colItem.height * 0.5)
+                .lineTo(_left + _helpWidth + _helpDist, _top + _helpHeight + colItem.height * 0.5)
+                .stroke()
+                .beginPath()
+                .moveTo(
+                    colNum == imageData.contents[rowNum].contents.length - 1 ?
+                        left + imageData.width
+                        :
+                        _left + _helpWidth + colItem.width, _top + _helpHeight + colItem.height * 0.5)
+                .lineTo(_left + _helpWidth + colItem.width - _helpDist, _top + _helpHeight + colItem.height * 0.5)
+                .stroke();
 
 
             // 组
