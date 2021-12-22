@@ -135,7 +135,7 @@
         }
 
         &>header {
-            background-image: url('./assets/logo.png');
+            background-image: url('./logo.png');
             line-height: 50px;
             background-size: auto 40px;
             background-repeat: no-repeat;

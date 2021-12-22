@@ -27,3 +27,7 @@ v0.1.6:
     date:2021-08-06
     changes:
       - 修复多分组边界连线缺失问题
+v0.2.0:
+    date:2021-12-22
+    changes:
+      - 使用EtcPack代替webpack进行项目打包
